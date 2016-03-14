@@ -2,16 +2,18 @@
 
 <em>Hello!</em>
 ---
-##HOMEWORK
+##作业
+* 第一次作业
+---
+
+##练习
 * 
 
-##ADDITIONAL PRACTISE
-* 
-
-##MORE AND MORE
-* 
+##(⊙o⊙)…
+*  
 $$\frac{-h^2}{8\pi^2m}\Delta\psi(x)+V(x)\psi(x)=E\psi(x)$$
-提高水平，Derpy小呆
+
+Derpy，小呆保佑
    
                                                                                                                             
                                                                                                                            
