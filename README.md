@@ -1,21 +1,21 @@
 #computationalphysics_N2013301020084
 
 <em>Hello!</em>
----
+
 ##作业
-* 第一次作业
----
+* [**第三次作业**](https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/03/Any_words.py)
+只完成了前两个...**难**
 
 ##练习
-* 
 
 ##(⊙o⊙)…
-*  
+
 $$\frac{-h^2}{8\pi^2m}\Delta\psi(x)+V(x)\psi(x)=E\psi(x)$$
 
-Derpy，小呆保佑
+公式？
+
+Derpy保佑
    
-                                                                                                                            
                                                                                                                            
                                          ..,,:::::::,,,,,:::::::::::..      i21FuL:                                        
                                      .::::,..                   ...,:::::..uPYi:;v5SU:                                     
