@@ -5,6 +5,7 @@
 ##作业
 * [**第三次作业**](https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/03/Any_words.py)
 只完成了前两个...**难**
+* [**Chapter1 第5题**](https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/chapter1/work01.py)
 
 ##练习
 
