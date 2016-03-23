@@ -3,15 +3,13 @@
 <em>Hello!</em>
 
 ##作业
-* [**第三次作业**](https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/03/Any_words.py)
-只完成了前两个...**难**
-* [**Chapter1 第5题**](https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/chapter1/work01.py)
+* [**第三次作业**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/03)
+只完成了前两个...
+* [**Chapter1 第5题**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1)
 
 ##练习
 
-##(⊙o⊙)…
-
-Derpy保佑
+##Derpy保佑
    
                                                                                                                            
                                          ..,,:::::::,,,,,:::::::::::..      i21FuL:                                        
