@@ -7,9 +7,11 @@
 - 学习使用VPython和EasyGUI。
 - 研究物体在重力场中的运动，并且用VPython形式输出到屏幕上。
 - 期望能够模拟出有空气阻力的效果。
+
 ## 程序实现方法
 - 建立屏幕大小
 - 建立物体: Earth, Target, Bomb
 - 输入Bomb的发射角度和初始动量，以落在Target的附近的一定区域为标准，判断是否命中目标。
+
 ## 全文链接
 - [**在这里**](https://www.zybuluo.com/MilCOS/note/326541)
