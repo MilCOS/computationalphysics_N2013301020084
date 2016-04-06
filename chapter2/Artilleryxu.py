@@ -55,7 +55,7 @@ class cannon:
         ylabel('y_velocity (m/s)')
         xlabel('x_velocity (m/s)')
         title('Velocity change of cannonball')
-        plot(t,vin,label=str(v)+str(angle))
+        plot(t,vin,label=str(v)+'m/s'+'|'+str(angle))
         legend()
         #show()
 
@@ -65,7 +65,7 @@ class cannon:
         for fs in self.cannon_flight_state:
             x.append(fs.x)
             y.append(fs.y)
-        plot(x,y,label=str(v)+str(angle))
+        plot(x,y,label=str(v)+'m/s'+'|'+str(angle))
         ylabel('y_distance /m')
         xlabel('x_distance /m')
         title('Trajectory of cannonball')
@@ -120,7 +120,7 @@ def mode2(): #air resistance
     B = []
     i = 0
     angle = 45
-    k = easygui.integerbox("Input the drawing number(1~)")
+    k = easygui.integerbox("Input the number of curved lines(1~)")
     if k == None: choosemode()
     for v in range(100,(k+5)*20,20):
         i += 1
@@ -168,7 +168,7 @@ def mode3(): # density change
     choosemode()
 def choosemode():
     out = easygui.buttonbox('No Air | Air Resistance | Density Change | Quit','CHOOSE MODE',[1,2,3,'Quit'])
-    if out == 'Quit': print 'Good Bye'
+    if out == 'Quit': print 'Hello World'
     elif int(out) == 1: mode1()
     elif int(out) == 2: mode2()
     elif int(out) == 3: mode3()
