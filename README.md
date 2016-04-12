@@ -1,14 +1,13 @@
-#computationalphysics_N2013301020084
+#computationalphysics_N2013301020084  Hey
 
-<em>Hello!</em>
+许晗
 
 ##作业
-* [**第三次作业**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/03)
-只完成了前两个...
-* [**Chapter1**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1)
-* [**Chapter1.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1.01)
-* [**Chapter2**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2)
-##练习
+* [**第三次作业**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/03) Final_String
+* [**Chapter1**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1) Nuclear_Decay
+* [**Chapter1.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1.01) CanonBase(Vpython)
+* [**Chapter2**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2) Artillery
+* [**Chapter2.01**]() Baseball(Vpython)
 
 ##Derpy保佑
    
