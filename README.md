@@ -7,7 +7,7 @@
 * [**Chapter1**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1) Nuclear_Decay
 * [**Chapter1.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter1.01) CanonBase(Vpython)
 * [**Chapter2**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2) Artillery
-* [**Chapter2.01**]() Baseball(Vpython)
+* [**Chapter2.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2.01) Baseball(Vpython)
 
 ##Derpy保佑
    
