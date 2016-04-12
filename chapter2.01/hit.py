@@ -120,7 +120,7 @@ def hit(baseball,home_plate):
         if Baseball_t.states[-1].y < 0 or Baseball_t.states[-1].x > home_plate.x:
             debugger += 1
             print debugger
-            print Baseball_t.states[-1].z, Baseball_t.states[-1].y
+            easygui.msgbox('Horizenal_diffraction(m): '+str(Baseball_t.states[-1].z)+'\nHeight(m): '+str(Baseball_t.states[-1].y))
             break
         Baseball_t.Next()
     return Baseball_t
