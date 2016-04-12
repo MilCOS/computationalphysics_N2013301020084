@@ -17,6 +17,9 @@
 - 建立屏幕大小
 - 建立物体: Earth, Target, Bomb
 - 输入Bomb的发射角度和初始动量，以落在Target的附近的一定区域为标准，判断是否命中目标。
-
+## 演示
+1. 输入 ![此处输入图片的描述][1]
 ## 全文链接
 - [**在这里**](https://www.zybuluo.com/MilCOS/note/326541)
+- 
+  [1]: https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/chapter1.01/test_demo_input.gif
