@@ -16,8 +16,8 @@ factor = readfile()
 print factor
 
 class States:
-    global g,a1,a2,vd,delta,S0_m,w,w_t
-    [g,a1,a2,vd,delta,S0_m,w,w_t]=factor[:]
+    global g,a1,a2,vd,delta,S0_m,mph,rpm
+    [g,a1,a2,vd,delta,S0_m,mph,rpm]=factor[:]
 
     def __init__(self, ball= sphere(pos=(0,0,0),velocity=vector(0,0,0),radius=0.01,color=color.black), t=0):
         self.x = ball.pos.x
@@ -47,10 +47,8 @@ class Baseball:
 
         if key == 'Normal': 
             [vx,vz,vy] = self.choosemode.Normalball(states_t, self.dt)
-            print vx,vy,vz
         elif key == 'Spin': 
             [vx,vz,vy] = self.choosemode.Spinball(states_t, self.dt)
-            print vx,vy,vz
         elif key == 'Knuckle': 
             [vx,vz,vy] = self.choosemode.Knuckleball(states_t, self.dt)
         elif key == 'Exit': sys.exit(0)
@@ -64,6 +62,7 @@ class Baseball:
     def choose(self):
         key = easygui.buttonbox('Normal/Spin/Knuckle Ball','CHOOSEMODE',['Normal','Spin','Knuckle','Exit'])
         return key
+
     def path(self):
         states_t = self.states[-1]
         [x,y,z] = [states_t.x,states_t.y,states_t.z]
@@ -71,8 +70,13 @@ class Baseball:
         
 
 class Choosemode:
-    global g,a1,a2,vd,delta,S0_m,w,w_t
-    [g,a1,a2,vd,delta,S0_m,w,w_t] = factor[:]
+    global g,a1,a2,vd,delta,S0_m,mph,rpm,w,w_k
+    [g,a1,a2,vd,delta,S0_m,mph,rpm] = factor[:]
+    w = 2000*rpm
+    w_k = 12*rpm
+    def __init__(self,sita=1.6):
+        self.spin = []
+        self.spin.append(sita)
 
     def Normalball(self, states_t, dt):
         B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
@@ -88,7 +92,7 @@ class Choosemode:
     def Spinball(self, states_t, dt):
         B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
         d_vx = - B2_m * states_t.v * states_t.vx * dt
-        d_vz = - S0_m * states_t.vx * (w*2*math.pi/60) * dt
+        d_vz = - S0_m * states_t.vx * w * dt
         d_vy = -g * dt
         vx = states_t.vx + d_vx
         vz = states_t.vz + d_vz
@@ -98,19 +102,26 @@ class Choosemode:
 
     def Knuckleball(self, states_t, dt):
         B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
-        sita = sita + (w_t*2*math.pi/60) * dt
+        sita = self.spin[-1]
+        d_vx = - B2_m * states_t.v * states_t.vx * dt
+        d_vz = - B2_m * states_t.v * states_t.vz * dt - S0_m * states_t.vx * w_k * dt + g * 0.5 * (math.sin(4*sita)-0.25*math.sin(8*sita)+0.08*math.sin(12*sita)-0.025*math.sin(16*sita)) * dt
+        d_vy = -g * dt
         vx = states_t.vx + d_vx
         vz = states_t.vz + d_vz
         vy = states_t.vy + d_vy
         v = [vx,vz,vy]
+        sita = self.spin[-1] + (w_k) * dt
+        self.spin.append(sita)
+        print d_vz
+        return v
 
 # ----------
 def hit(baseball,home_plate):
     debugger = 0
-    angle = int(easygui.integerbox('Choose Pitching Angle')) # degree
+    angle = int(easygui.integerbox('Initial velocity is 45m/s\nChoose Pitching Angle')) # degree
     init_v = 45 # m/s 
-    init_vx = init_v * math.cos(radians(angle))
-    init_vy = init_v * math.sin(radians(angle))
+    init_vx = init_v * math.cos(math.radians(angle))
+    init_vy = init_v * math.sin(math.radians(angle))
     init_vz = 0
     baseball.velocity = vector(init_vx,init_vy,init_vz)
     temp = States(baseball)
