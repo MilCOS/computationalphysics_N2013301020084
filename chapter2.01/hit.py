@@ -3,6 +3,10 @@ import easygui
 import sys
 from visual import *
 
+outfile = open('result.txt', 'w')
+hint = 'x      z      y         vx       vz      vy\n'
+outfile.write(hint)
+
 def readfile():
     infile = open('parameter.txt', 'r')
     linelist = infile.readlines()
@@ -11,6 +15,10 @@ def readfile():
     for char in linelist[1].split():
         factor.append(float(char))
     return factor
+
+def writefile(r,v):
+    astring = str(r)+str(v)+'\n'
+    outfile.write(astring)
 
 factor = readfile()
 print factor
@@ -71,10 +79,10 @@ class Baseball:
 
 class Choosemode:
     global g,a1,a2,vd,delta,S0_m,mph,rpm,w,w_k
-    [g,a1,a2,vd,delta,S0_m,mph,rpm] = factor[:]
-    w = 2000*rpm
-    w_k = 12*rpm
-    def __init__(self,sita=1.6):
+    [g,a1,a2,vd,delta,S0_m,mph,rps] = factor[:]
+    w = 33*rps
+    w_k = 0.2*rps
+    def __init__(self,sita=math.radians(33)):
         self.spin = []
         self.spin.append(sita)
 
@@ -98,13 +106,15 @@ class Choosemode:
         vz = states_t.vz + d_vz
         vy = states_t.vy + d_vy
         v = [vx,vz,vy]
+        r = [states_t.x,states_t.z,states_t.y]
+        writefile(r,v)
         return v
 
     def Knuckleball(self, states_t, dt):
         B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
         sita = self.spin[-1]
         d_vx = - B2_m * states_t.v * states_t.vx * dt
-        d_vz = - B2_m * states_t.v * states_t.vz * dt - S0_m * states_t.vx * w_k * dt + g * 0.5 * (math.sin(4*sita)-0.25*math.sin(8*sita)+0.08*math.sin(12*sita)-0.025*math.sin(16*sita)) * dt
+        d_vz = - S0_m * states_t.vx * w_k * dt + g * 0.5 * (math.sin(4*sita)-0.25*math.sin(8*sita)+0.08*math.sin(12*sita)-0.025*math.sin(16*sita)) * dt
         d_vy = -g * dt
         vx = states_t.vx + d_vx
         vz = states_t.vz + d_vz
@@ -112,13 +122,14 @@ class Choosemode:
         v = [vx,vz,vy]
         sita = self.spin[-1] + (w_k) * dt
         self.spin.append(sita)
-        print d_vz
+        r = [states_t.x,states_t.z,states_t.y]
+        writefile(r,v)
         return v
 
 # ----------
 def hit(baseball,home_plate):
     debugger = 0
-    angle = int(easygui.integerbox('Initial velocity is 45m/s\nChoose Pitching Angle')) # degree
+    angle = float(easygui.enterbox('Initial velocity is 45m/s\nChoose Pitching Angle')) # degree
     init_v = 45 # m/s 
     init_vx = init_v * math.cos(math.radians(angle))
     init_vy = init_v * math.sin(math.radians(angle))
@@ -131,7 +142,7 @@ def hit(baseball,home_plate):
         if Baseball_t.states[-1].y < 0 or Baseball_t.states[-1].x > home_plate.x:
             debugger += 1
             print debugger
-            easygui.msgbox('Horizenal_diffraction(m): '+str(Baseball_t.states[-1].z)+'\nHeight(m): '+str(Baseball_t.states[-1].y))
+            easygui.msgbox('Horizenal_diffraction(m): '+str(Baseball_t.states[-1].z)+'\nHeight(m): '+str(abs(Baseball_t.states[-1].y - 1.65)))
             break
         Baseball_t.Next()
     return Baseball_t
