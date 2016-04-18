@@ -145,15 +145,20 @@ def mode3(): # density change
     limit_d = float(easygui.enterbox('Allowable errors about the distance between target and landing point','CHOOSE ERROR')) #m
     d = target_x
     limit = limit_d
-    while d > limit:
-        c = dense_air(ini(), _dt = 0.1)
+    c = dense_air(ini(), _dt = 0.1)
+    while d > limit:       
         d = abs(c.shoot()[0] - target_x)
+        print(c.shoot()[0])
         if d < limit: break
         final = []
+        temp = []
         for angle in range(5,90,5):
+            c = dense_air(ini(340,angle), _dt = 0.1)
             final.append(c.shoot()[0])
+            temp.append(angle)
         i = final.index(max(final))
-        angle = range(5,90,5)[i]
+        angle = temp[i]
+        print angle
         for v in range(100,target_x,1):
             c = dense_air(ini(v, angle), _dt = 0.1)
             d = abs(c.shoot()[0] - target_x)

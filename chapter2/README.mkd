@@ -16,7 +16,8 @@
 ---
 
 ##范例以及全文
-![][1]
 [全文戳这里](https://www.zybuluo.com/MilCOS/note/336300)
+
+![][1]
 
   [1]:https://raw.githubusercontent.com/MilCOS/computationalphysics_N2013301020084/master/chapter2/Artilleryxu_demo_2_2.gif
