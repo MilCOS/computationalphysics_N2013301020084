@@ -4,8 +4,9 @@
 -----
 ## 程序目的
 - 研究单摆在不同近似条件和外界条件下的运动。
-- Vpython可视化
-- 展示混沌现象。(还没有)
+- 每次计算前可以选择用哪些近似。（只是图上标记就有点难受了...）
+- 用matpoltlib画图。
+- 最后用Vpython展示混沌现象。(还没有)
 
-
-[**看**](https://www.zybuluo.com/MilCOS/note/349250)
+## 全文及示例
+- [**看**](https://www.zybuluo.com/MilCOS/note/349250)
