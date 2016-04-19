@@ -152,6 +152,7 @@ def draw(q=1.0, omega_D=2.0, FD=0.2):
         pl.savefig("Pendulum_"+str(i)+".png",dpi=72) #
     regular_plot(q[:],omega_D[:1],FD[:1])               #
     pl.title("Oscillator "+'$\Theta = '+str(math.degrees(ini_theta))+'^o$')
+    pl.savefig("Pendulum_"+".png",dpi=72) #
 
 q = [0, 1.0, 2.0]
 omega_D = [1.0, 2.0, 3.0]
