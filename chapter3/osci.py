@@ -1,6 +1,5 @@
 import math
 import easygui
-import sys
 from visual import *
 
 def readfile():
@@ -16,126 +15,104 @@ factor = readfile()
 print factor
 
 class States:
-    global g,FD
-    [g,a1,a2,vd,delta,S0_m,mph,rpm]=factor[:]
+    global g,l,q,Omega,FD
+    [g,l,q,Omega,FD]=factor[:]
 
-    def __init__(self, ball= sphere(pos=(0,0,0),velocity=vector(0,0,0),radius=0.01,color=color.black), t=0):
-        self.x = ball.pos.x
-        self.z = ball.pos.z
-        self.y = ball.pos.y
-        self.vx = ball.velocity.x
-        self.vz = ball.velocity.z
-        self.vy = ball.velocity.y
+# ini_state=[omega, theta, t]
+    def __init__(self, ini_state=[0,0], t=0):
+        self.omega = ini_state[0]
+        self.theta = ini_state[-1]
         self.t = t
-        self.v = mag(ball.velocity)
+#        self.x = ball.pos.x
+#        self.z = ball.pos.z
+#        self.y = ball.pos.y
+#        self.vx = ball.velocity.x
+#        self.vz = ball.velocity.z
+#        self.vy = ball.velocity.y
+#        self.v = mag(ball.velocity)
 
-class Baseball:
+class Pendulum:
         
     def __init__(self, _sta = States(), d_t=0.01):
-        self.key = self.choose()
         self.states = []
         self.states.append(_sta)
         self.dt = d_t
-        self.choosemode = Choosemode()
+        self.keys = self.choosemode()
+        self.modes = Choosemode()
         
     def Next(self):
-        key = self.key
+        [key_0,key_1,key_2] = self.keys
         states_t = self.states[-1]
-        x = states_t.x + states_t.vx * self.dt
-        z = states_t.z + states_t.vz * self.dt
-        y = states_t.y + states_t.vy * self.dt
         
-        add = [0,0,0]
+        add = [0]
+        if key_0 == 'Simple': 
+            add = add + self.modes.Simple(states_t, self.dt)
+        else:
+            add = add + self.modes.Not_Simple(states_t, self.dt)
+        if key_1 == 'Drag': 
+            add = add + self.modes.Drag(states_t, self.dt)
+        if key_2 == 'ForceD': 
+            add = add + self.modes.ForceD(states_t, self.dt)
+        omega = states_t.omega + add[0]
+        theta = states_t.theta + omega * self.dt
+        t = states_t.t + self.dt
 
-        if key == 'Simple': 
-            add = add + self.choosemode.Normalball(states_t, self.dt)
-        if key == 'Drag': 
-            add = add + self.choosemode.Spinball(states_t, self.dt)
-        if key == 'Force': 
-            add = add + self.choosemode.Knuckleball(states_t, self.dt)
-        vx = states_t.vx + add[0]
-        vz = states_t.vz + add[1]
-        vy = states_t.vy + add[2]
+        self.states.append(States([omega,theta], t))
+        return [omega, theta, t]
+#        ball = sphere(pos=vector(x,y,z),radius=0.075,color=color.white)
+#        ball.velocity = vector(vx,vy,vz)
 
-        ball = sphere(pos=vector(x,y,z),radius=0.075,color=color.white)
-        ball.velocity = vector(vx,vy,vz)
-        #---------
-        self.states.append(States(ball, states_t.t+self.dt))
-        return self.path()
-
-    def choose(self):
-        key = easygui.buttonbox('Normal/Spin/Knuckle Ball','CHOOSEMODE',['Normal','Spin','Knuckle','Exit'])
-        return key
+    def choosemode(self):
+        key_0 = easygui.buttonbox('Choose the small angle approximation or not','CHOOSE',['Simple', 'Not_Simple'])
+        key_1 = easygui.buttonbox('Choose whether to add the damping force or not','CHOOSE',['Drag','Skip!'])
+        key_2 = easygui.buttonbox('Choose whether to add the driving force or not','CHOOSE',['ForceD','Skip!'])
+        return [key_0,key_1,key_2]
 
     def path(self):
         states_t = self.states[-1]
-        [x,y,z] = [states_t.x,states_t.y,states_t.z]
-        return sphere(pos=vector(x,y,z), radius=0.04, color=color.white)
+        pass
+#        [x,y,z] = [states_t.x,states_t.y,states_t.z]
+#        return sphere(pos=vector(x,y,z), radius=0.04, color=color.white)
         
 
 class Choosemode:
-    global g,a1,a2,vd,delta,S0_m,mph,rpm,w,w_k
-    [g,a1,a2,vd,delta,S0_m,mph,rpm] = factor[:]
-    w = 2000*rpm
-    w_k = 12*rpm
-    def __init__(self,sita=1.6):
-        self.spin = []
-        self.spin.append(sita)
+    global g,l,q,omega_D,FD
+    [g,l,q,omega_D,FD]=factor[:]
+    def __init__(self):
+        pp = 'pinkie pie'
 
-    def Normalball(self, states_t, dt):
-        B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
-        d_vx = - B2_m * states_t.v * states_t.vx * dt
-        d_vz = - B2_m * states_t.v * states_t.vz * dt
-        d_vy = - g * dt - B2_m * states_t.v * states_t.vy * dt
-        vx = states_t.vx + d_vx 
-        vz = states_t.vz + d_vz
-        vy = states_t.vy + d_vy
-        v = [vx,vz,vy]
-        return v
+    def Simple(self, states_t, dt):
+        d_omega = - g/l * states_t.theta * dt
+        return [d_omega]
 
-    def Spinball(self, states_t, dt):
-        B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
-        d_vx = - B2_m * states_t.v * states_t.vx * dt
-        d_vz = - S0_m * states_t.vx * w * dt
-        d_vy = -g * dt
-        vx = states_t.vx + d_vx
-        vz = states_t.vz + d_vz
-        vy = states_t.vy + d_vy
-        v = [vx,vz,vy]
-        return v
+    def Drag(self, states_t, dt):
+        d_omega = - q * states_t.omega * dt
+        return [d_omega]
 
-    def Knuckleball(self, states_t, dt):
-        B2_m = a1 + a2/(1+math.exp((states_t.v-vd)/delta))
-        sita = self.spin[-1]
-        d_vx = - B2_m * states_t.v * states_t.vx * dt
-        d_vz = - B2_m * states_t.v * states_t.vz * dt - S0_m * states_t.vx * w_k * dt + g * 0.5 * (math.sin(4*sita)-0.25*math.sin(8*sita)+0.08*math.sin(12*sita)-0.025*math.sin(16*sita)) * dt
-        d_vy = -g * dt
-        vx = states_t.vx + d_vx
-        vz = states_t.vz + d_vz
-        vy = states_t.vy + d_vy
-        v = [vx,vz,vy]
-        sita = self.spin[-1] + (w_k) * dt
-        self.spin.append(sita)
-        print d_vz
-        return v
+    def ForceD(self, states_t, dt):
+        d_omega = FD * math.sin(omega_D * states_t.t) * dt
+        return [d_omega]
+
+    def Not_Simple(self, states_t, dt):
+        d_omega = - g/l * math.sin(states_t.theta) * dt
+        return [d_omega]
 
 # ----------
-def hit(baseball,home_plate):
+def release():
     debugger = 0
-    angle = int(easygui.integerbox('Initial velocity is 45m/s\nChoose Pitching Angle')) # degree
-    init_v = 45 # m/s 
-    init_vx = init_v * math.cos(math.radians(angle))
-    init_vy = init_v * math.sin(math.radians(angle))
-    init_vz = 0
-    baseball.velocity = vector(init_vx,init_vy,init_vz)
-    temp = States(baseball)
-    Baseball_t = Baseball(temp, 0.01)
+    ini_theta = int(easygui.integerbox('Make ini_theta to be')) # degree
+    ini_state = [0, ini_theta] 
+    temp = States(ini_state)
+    pendulum_t = Pendulum(temp, 0.01)
+    counter = 0
     while True:
         rate(100)
-        if Baseball_t.states[-1].y < 0 or Baseball_t.states[-1].x > home_plate.x:
+        counter += 1
+        if counter>=1000:
             debugger += 1
             print debugger
-            easygui.msgbox('Horizenal_diffraction(m): '+str(Baseball_t.states[-1].z)+'\nHeight(m): '+str(Baseball_t.states[-1].y))
             break
-        Baseball_t.Next()
-    return Baseball_t
+        pendulum_t.Next()
+    return pendulum_t
+
+release()
