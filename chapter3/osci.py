@@ -51,7 +51,6 @@ class Pendulum:
             print 'pinkie pie'
         if key_1 == 'Drag': 
             add = add + self.modes.Drag(states_t, self.dt)
-            print 'rainbowdash',add
         if key_2 == 'ForceD': 
             add = add + self.modes.ForceD(states_t, self.dt)
         omega = states_t.omega + add
@@ -105,6 +104,15 @@ class Choosemode:
         return d_omega
 
 # ----------
+
+def regular_plot(q=1.0, omega_D=2.0, FD=0.2):
+    if len(q) != 1: 
+        pl.text(1, 0.3, r'$\Omega_D = '+str(omega_D)+ '$ \n' + r'$F_D='+str(FD)+'$', color='black', fontsize=20)
+    if len(omega_D) != 1:
+        pl.text(1, 0.3, r'$q = '+str(q)+ '$ \n' + r'$F_D='+str(FD)+'$', color='black', fontsize=20)
+    if len(FD) != 1:
+        pl.text(1, 0.3, r'$q = '+str(q)+ '$ \n' + r'$\Omega_D='+str(omega_D)+'$', color='black', fontsize=20)
+
 def release(ini_theta = 10, q=1.0, omega_D=2.0, FD=0.2):
     para = [q, omega_D, FD] # 'package' the parameters
 
@@ -128,7 +136,6 @@ def release(ini_theta = 10, q=1.0, omega_D=2.0, FD=0.2):
         result = pendulum_t.Next()
         theta.append(result[1])
         t.append(result[-1])
-    # waiting for regular plot Ha?
     ax = pl.axes(xlim=(0, 10), ylim=(-0.4, 0.4))
     pl.plot(t, theta, label="omega_D="+str(para[0])) #choose i in para[i] to match your changing` parameter
     pl.legend(loc='lower right')
@@ -136,17 +143,18 @@ def release(ini_theta = 10, q=1.0, omega_D=2.0, FD=0.2):
 def draw(q=1.0, omega_D=2.0, FD=0.2):
     ini_theta = math.radians(float(easygui.enterbox('Make ini_theta to be in degree'))) # degree shouldn't be zero or the pendulum will keep still
     fig = pl.figure(figsize=(19,12))
-    pl.title("Oscillator")
     pl.xlabel(r'$time(s)$', fontsize=20)
     pl.ylabel(r'$\theta(radians)$', fontsize=20)
 
-    for i in range(len(omega_D)):
-        release(ini_theta, q[i], omega_D[0], FD[0])
-        print omega_D[i]
-        pl.savefig("Pendulum_"+str(i)+".png",dpi=72)
+    for i in range(len(omega_D)):                    # Be aware about the index
+        release(ini_theta, q[i], omega_D[0], FD[0])  # 
+        print omega_D[i]                             #
+        pl.savefig("Pendulum_"+str(i)+".png",dpi=72) #
+    regular_plot(q[:],omega_D[:1],FD[:1])               #
+    pl.title("Oscillator "+'$\Theta = '+str(math.degrees(ini_theta))+'^o$')
 
 q = [0, 1.0, 2.0]
-omega_D = [3.0,2.0,1.0]
+omega_D = [1.0, 2.0, 3.0]
 FD = [0.2, 0.5, 1.0]
 
 
