@@ -10,6 +10,8 @@
 * [**Chapter2.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2.01) Baseball(Vpython)
 * [**Chapter3**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter3) Pendulum—Oscillation
 * [**Chapter3.01**](https://www.zybuluo.com/MilCOS/note/351186) Pendulum-Chaos
+* None. [**Chapter3.02**]() Box
+* [**Chapter4**](https://www.zybuluo.com/MilCOS/note/373156) Stars
 ##Derpy保佑
    
                                                                                                                            
