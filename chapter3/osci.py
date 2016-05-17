@@ -57,8 +57,8 @@ class Pendulum:
         theta = states_t.theta + omega * self.dt
         t = states_t.t + self.dt
 
-        if (theta <= - math.pi):    theta = theta + math.pi
-        if (theta > math.pi):    theta = theta - math.pi
+        if (theta <= - math.pi):    theta = theta + 2*math.pi
+        if (theta > math.pi):    theta = theta - 2*math.pi
         self.states.append(States([omega,theta], t))
         return [omega, theta, t]
 #        ball = sphere(pos=vector(x,y,z),radius=0.075,color=color.white)
@@ -82,7 +82,7 @@ class Choosemode:
     [g,l]=factor[:2]
 
     def __init__(self, para=[1.0,2.0,0.2]):
-        pp = 'pinkie pie'
+        # pp = 'pinkie pie'
         self.q = para[0]
         self.omega_D = para[1]
         self.FD = para[-1]
@@ -136,7 +136,7 @@ def release(ini_theta = 10, q=1.0, omega_D=2.0, FD=0.2):
         result = pendulum_t.Next()
         theta.append(result[1])
         t.append(result[-1])
-    ax = pl.axes(xlim=(0, 10), ylim=(-0.4, 0.4))
+    ax = pl.axes(xlim=(0, max(t)), ylim=(-4,4))
     pl.plot(t, theta, label="omega_D="+str(para[0])) #choose i in para[i] to match your changing` parameter
     pl.legend(loc='lower right')
 
