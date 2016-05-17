@@ -9,10 +9,10 @@
 * [**Chapter2**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2) Artillery
 * [**Chapter2.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter2.01) Baseball(Vpython)
 * [**Chapter3**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter3) Pendulum—Oscillation
-* [**Chapter3.01**](https://www.zybuluo.com/MilCOS/note/351186) Pendulum-Chaos
-* None. [**Chapter3.02**]() Box
-* [**Chapter4**](https://www.zybuluo.com/MilCOS/note/373156) Stars
-* [**Chapter4.01**](https://www.zybuluo.com/MilCOS/note/380206) The_Moon    
+* [**Chapter3.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter3.01) Pendulum-Chaos
+* None. [**Chapter3.02**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter3.02) Box
+* [**Chapter4**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter4) Stars
+* [**Chapter4.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter4.01) The_Moon 
 ##Derpy保佑
    
                                                                                                                            
