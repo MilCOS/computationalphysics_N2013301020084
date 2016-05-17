@@ -40,14 +40,14 @@ s = 0
 def run(moon1, moon2, omega, theta, t, dt=0.001):
     counter = 0
     while True:
-        rate(1000)
+        rate(10000)
         moon1.trail.append(pos=moon1.pos)
         moon2.trail.append(pos=moon2.pos)
-        [i,j,k] = updatePosition(moon1, moon2, omega[-1], theta[-1], t[-1], dt=0.001)
+        [i,j,k] = updatePosition(moon1, moon2, omega[-1], theta[-1], t[-1], dt)
         omega.append(i)
         theta.append(j)
         t.append(k)
-        if counter % 1000 == 0:
+        if counter % 10000 == 0:
             print 'Press "q" to plot 3D, or anything else to continue...'
             s = scene.kb.getkey()
             if s == 'Enter' or s == 'q':
