@@ -6,15 +6,16 @@ datafile_2 = open("sor_method.txt", "r")
 x = []
 y = []
 v = []
-L = 30 # be aware!
-i = -(L)/2
+# be aware no L!
+i = 0
 # chang the index
-for aline in datafile_2: 
+for aline in datafile_1: 
     values = aline.split()
-    for j in range(L+1):
+    print len(values)
+    for j in range(len(values)):
         temp = float(values[j])
         v.append(temp*10)
-        y.append(j-L/2)
+        y.append(j)
         x.append(i)
     i +=1
 

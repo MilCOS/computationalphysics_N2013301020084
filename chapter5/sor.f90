@@ -1,17 +1,20 @@
 program potential
 implicit none
-real :: delta0=0.0,init1,init2
-integer,parameter :: L=30
-integer :: i,N=30
+real :: delta0=0.01,init1,init2
+integer,parameter :: L=30 ! change L
+integer :: i,N=0
 real,allocatable :: V0(:,:)
 allocate(V0(-L/2:L/2,-L/2:L/2))
 V0 = 0
 V0(-3,-3:3)=1
 V0(3,-3:3)=-1
-do i=1,N
+do while (delta0 > 0.0001)
   call laplace(V0,delta0)
+  N = N+1
 end do
 call store(V0)
+write(*,*) N ! N_iter
+deallocate(V0)
 contains
   subroutine sor_update(V)
   implicit none
@@ -40,7 +43,7 @@ contains
     init1 = sum(V)
     call sor_update(V)
     init2 = sum(V)
-    delta = (init1 - init2)
+    delta = abs(init1 - init2)
     write(*,*) delta
     !do while (abs(delta) > 0.0001)
     !  init1 = sum(V)
@@ -59,7 +62,7 @@ contains
     !allocate(V(-L/2:L/2,-L/2:L/2))
     open(unit=8,file='sor_method.txt',action='readwrite',status='replace',iostat=stat)
     do i =-L/2,L/2,1
-      write(unit=8,fmt='(31(1X,F7.4,1X))') V(i,:)
+      write(unit=8,fmt='(51(1X,F7.4,1X))') V(i,:)
     end do
     rewind(unit=8)
     write(*,*) 'pinkie pie'
