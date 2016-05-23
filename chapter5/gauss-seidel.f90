@@ -5,8 +5,8 @@ integer,parameter :: L=30 ! L in every subroutine "should" be changed if you lik
 real,allocatable :: V0(:,:)
 allocate(V0(-L/2:L/2,-L/2:L/2))
 V0 = 0
-V0(-3,-3:3)=1
-V0(3,-3:3)=-1
+V0(-L/10,-L/10:L/10)=1
+V0(L/10,-L/10:L/10)=-1
 call laplace(V0,delta0)
 call store(V0)
 deallocate(V0)
@@ -17,7 +17,7 @@ contains
   real,allocatable :: V(:,:)
     do i = -L/2+1,L/2-1
       do j = -L/2+1,L/2-1
-        if ((abs(i)==3).and.(abs(j)<=3)) cycle
+        if ((abs(i)==L/10).and.(abs(j)<=L/10)) cycle
         V(i,j) = 1./4.*(V(i-1,j)+V(i+1,j)+V(i,j-1)+V(i,j+1))
       end do
     end do

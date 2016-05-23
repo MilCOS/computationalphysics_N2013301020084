@@ -6,8 +6,8 @@ integer :: i,N=0
 real,allocatable :: V0(:,:)
 allocate(V0(-L/2:L/2,-L/2:L/2))
 V0 = 0
-V0(-3,-3:3)=1
-V0(3,-3:3)=-1
+V0(-L/10,-L/10:L/10)=1
+V0(L/10,-L/10:L/10)=-1
 do while (delta0 > 0.0001)
   call laplace(V0,delta0)
   N = N+1
@@ -26,7 +26,7 @@ contains
     alpha = 2./(1.+pi/L)
     do i = -L/2+1,L/2-1
       do j = -L/2+1,L/2-1
-        if ((abs(i)==3).and.(abs(j)<=3)) cycle
+        if ((abs(i)==L/10).and.(abs(j)<=L/10)) cycle
         temp_V = 1./4.*(V(i-1,j)+V(i+1,j)+V(i,j-1)+V(i,j+1))
         V(i,j) = alpha * (temp_V - V(i,j)) + V(i,j)
       end do
