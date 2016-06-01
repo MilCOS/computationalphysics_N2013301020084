@@ -57,7 +57,7 @@ ax3.scatter(L_gauss_a,N_gauss_a,c='g')
 x = np.arange(13,52)
 ax3.plot(x, fit_gauss(x), linestyle='--')
 
-z2 = np.polyfit(L_sor_a,N_sor_a,1)
+z2 = np.polyfit(L_sor,N_sor,1)
 fit_sor = np.poly1d(z2)
 ax4.scatter(L_sor_a,N_sor_a,c='g')
 ax4.scatter(46,64,c='r',marker='v')
@@ -65,3 +65,4 @@ x = np.arange(13,52)
 ax4.plot(x, fit_sor(x), linestyle='--', label="N=1.862L + 0.1051")
 
 plt.show()
+print fit_gauss,fit_sor
