@@ -1,13 +1,13 @@
 from __future__ import print_function
 """
 A very simple 'animation' of a 3D plot
+Change Z1/Z2/Z at line 77 to plot single wave or wave collision
 """
 from mpl_toolkits.mplot3d import axes3d
 from matplotlib import cm
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-
 
 def generate(xs, ys):
     #R = 1 - np.sqrt(X**2 + Y**2)
@@ -46,7 +46,7 @@ ax = fig.add_subplot(111, projection='3d')
 c1, c2 = 300, 150
 _dx = 0.01
 _dy = 0.01
-_dt = _dx / c1
+_dt = _dx / 450
 k = 1000
 r1 = c1 * _dt/_dx #_dx=_dy
 r2 = c2 * _dt/_dx #_dx=_dy
@@ -68,13 +68,13 @@ next_Z2 = generate(Y, Y)
 wframe = None
 tstart = time.time()
 k = 0
-for t in np.linspace(0, 1, 200):
+for t in np.linspace(0, 1, 350):
 
     oldcol = wframe
     animate()
     #Z = [[Z1[i][j]+Z2[i][j] for i in range(len(X))]for j in range(len(Y))]
     Z = np.add(Z1,Z2)
-    wframe = ax.plot_wireframe(X, Y, Z2, rstride=2, cstride=2)
+    wframe = ax.plot_wireframe(X, Y, Z, rstride=2, cstride=2)
 #    cset = ax.contourf(X, Y, Z, zdir='z', offset=-100, cmap=cm.coolwarm)
 #    cset = ax.contourf(X, Y, Z, zdir='x', offset=-40, cmap=cm.coolwarm)
 #    cset = ax.contourf(X, Y, Z, zdir='y', offset=40, cmap=cm.coolwarm)
@@ -82,6 +82,7 @@ for t in np.linspace(0, 1, 200):
     # Remove old line collection before drawing
     if oldcol is not None:
         ax.collections.remove(oldcol)
+
     k += 1
     plt.pause(_dt)
 print(k)
