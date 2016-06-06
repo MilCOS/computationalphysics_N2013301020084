@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import easygui
 import time
+import math
 
 def generate(xs, ys):
     #R = 1 - np.sqrt(X**2 + Y**2)
@@ -23,11 +24,11 @@ def generate(xs, ys):
 
 def animate():
     global Z1,Z2,pre_Z1,next_Z1,pre_Z2,next_Z2
-    for i in range(41): #this is where we set blocks
+    for i in range(46): #this is where we set blocks
         Z1[i][49]=0
         Z1[-i][49]=0
-    for i in range(len(xs)/2-4, len(xs)/2+4):
-        Z1[i][49]=0
+    #for i in range(len(xs)/2-3, len(xs)/2+3):
+    #    Z1[i][49]=0
         
     for i in range(1,len(xs)-1):
         for j in range(1,len(ys)-1):
@@ -83,7 +84,7 @@ easygui.ccbox()
 tstart = time.time()
 k = 0
 pinkie,twily=[],[]
-for t in np.linspace(0, 1, 400):
+for t in np.linspace(0, 1, 80):
 
     oldcol = wframe
     animate()
@@ -101,4 +102,15 @@ for t in np.linspace(0, 1, 400):
     k += 1
     plt.pause(_dt)
 print(k)
+theta, intense = [],[]
+for i in range(0, len(xs)):
+    Z1[i][49]=0
+    temp=[]
+    for j in range(len(ys)/2+10,len(ys)):
+        temp.append(Z1[i][j])
+    temptheta = math.degrees(math.atan((i-50.)/50.))
+    theta.append(temptheta)
+    intense.append((sum(temp))**2)
+fig2 = plt.figure()
+plt.plot(theta,intense)
 plt.show()
