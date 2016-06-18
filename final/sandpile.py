@@ -42,8 +42,8 @@ def draw(Z_temp):
     cax = ax.imshow(Z_temp, interpolation='nearest', cmap=cm.coolwarm)
     ax.set_title('Sandpile with vertical colorbar')
     # Add colorbar, make sure to specify tick locations to match desired ticklabels
-    cbar = fig.colorbar(cax, ticks=[0, 4, 1], drawedges=True)
-    cbar.ax.set_yticklabels(['0', '1', '2', '3'])  # vertically oriented colorbar
+    cbar = fig.colorbar(cax, ticks=[0, np.ma.max(Z_temp), 1], drawedges=True)
+    #cbar.ax.set_yticklabels(['0', str(np.ma.max(Z_temp))])  # vertically oriented colorbar
     plt.show()
     
 
@@ -74,5 +74,6 @@ for k in range(N):
     D.append(note1)
     pinkie[np.where(pinkie>0)] = 1
     twili += pinkie 
+print(twili[40:60,40:60])
 draw(twili)
 print(float(N)/sum(D))
