@@ -3,11 +3,28 @@ import data_analyse as da
 from matplotlib import cm
 from matplotlib import pyplot as plt
 
-def boundary_con(Z_temp,l1=0,l2=1): #l1=45,l2=55 et.cl.
+def boundary_con(Z_temp,l1=0,l2=1): #line40: l1=45,l2=55 et.cl.
     Z_temp[:,0],Z_temp[:,L-1] = 0,0
     Z_temp[0,:],Z_temp[L-1,:] = 0,0
-    Z_temp[l1:l2,l1],Z_temp[l1:l2,l2]=0,0
-    Z_temp[l1,l1:l2],Z_temp[l2,l1:l2]=0,0
+#    Z_temp[l1-15:l2-15,l1],Z_temp[l1-15:l2-15,l2]=0,0
+#    Z_temp[l1-15,l1:l2],Z_temp[l2-15,l1:l2]=0,0
+#    Z_temp[l1+15:l2+15,l1],Z_temp[l1+15:l2+15,l2]=0,0
+#    Z_temp[l1+15,l1:l2],Z_temp[l2+15,l1:l2]=0,0
+#
+#    Z_temp[l1:l2,l1+15],Z_temp[l1:l2,l2+15]=0,0
+#    Z_temp[l1,l1+15:l2+15],Z_temp[l2,l1+15:l2+15]=0,0
+#    Z_temp[l1:l2,l1-15],Z_temp[l1:l2,l2-15]=0,0
+#    Z_temp[l1,l1-15:l2-15],Z_temp[l2,l1-15:l2-15]=0,0
+#
+#    Z_temp[l1:l2,l1-35],Z_temp[l1:l2,l2-35]=0,0
+#    Z_temp[l1,l1-35:l2-35],Z_temp[l2,l1-35:l2-35]=0,0
+#    Z_temp[l1:l2,l1+35],Z_temp[l1:l2,l2+35]=0,0
+#    Z_temp[l1,l1+35:l2+35],Z_temp[l2,l1+35:l2+35]=0,0
+#
+#    Z_temp[l1+35:l2+35,l1],Z_temp[l1+35:l2+35,l2]=0,0
+#    Z_temp[l1+35,l1:l2],Z_temp[l2+35,l1:l2]=0,0
+#    Z_temp[l1-35:l2-35,l1],Z_temp[l1-35:l2-35,l2]=0,0
+#    Z_temp[l1-35,l1:l2],Z_temp[l2-35,l1:l2]=0,0
     return Z_temp
 
 def pickadd():
@@ -73,6 +90,7 @@ def writefile(aline):
         items = aline[k]
         outfile.write(str(items) + '\n')
     outfile.close()
+
 def plotD(array1,array2):
     fig, ax_l = plt.subplots()
     ax_l.set_xscale("log")
@@ -100,7 +118,6 @@ def plotD(array1,array2):
     ax_l.plot(x, da.func(x, fit[0]), label=u'$\tau='+str(fit[0])+'$')
     ax_l.legend()
     plt.show()
-
 def count_in_unit():
     data_y = readfile() # values have been increased by 1 when readfile
     s,f = [],[]
