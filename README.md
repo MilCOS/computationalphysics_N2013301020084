@@ -15,4 +15,7 @@
 * [**Chapter4.01**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter4.01) The_Moon 
 * [**Chapter5**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter5) Potential
 * [**Chapter6**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/chapter6) 2D_WaveCollision
-##Derpy保佑
+* [**Final**](https://github.com/MilCOS/computationalphysics_N2013301020084/tree/master/final) Cellular autuma
+
+##神驹Pinkie保佑
+![](http://ww1.sinaimg.cn/mw690/9c02b31egw1f50ul0dxc2g205k04a77d.gif)
