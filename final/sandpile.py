@@ -6,6 +6,8 @@ from matplotlib import pyplot as plt
 def boundary_con(Z_temp,l1=0,l2=1): #line40: l1=45,l2=55 et.cl.
     Z_temp[:,0],Z_temp[:,L-1] = 0,0
     Z_temp[0,:],Z_temp[L-1,:] = 0,0
+    Z_temp[l1:l2,l1],Z_temp[l1:l2,l2]=0,0
+    Z_temp[l1,l1:l2],Z_temp[l2,l1:l2]=0,0
 #    Z_temp[l1-15:l2-15,l1],Z_temp[l1-15:l2-15,l2]=0,0
 #    Z_temp[l1-15,l1:l2],Z_temp[l2-15,l1:l2]=0,0
 #    Z_temp[l1+15:l2+15,l1],Z_temp[l1+15:l2+15,l2]=0,0
@@ -54,7 +56,7 @@ def evolve(rc):
                     Z1[i,j-1] += 1
                     pinkie[i,j] += 1
                 else: pass
-        Z1 = boundary_con(Z1,l1=45,l2=55)
+        Z1 = boundary_con(Z1,l1=25,l2=75)
     return counter
 
 def draw(Z_temp):
@@ -66,17 +68,9 @@ def draw(Z_temp):
     #cbar.ax.set_yticklabels(['0', str(np.ma.max(Z_temp))])  # vertically oriented colorbar
     plt.show()
 
-#def residuals(p, y, x):
-#    tau = p
-#    return math.log10(y) - tau*(math.log10(x))
-#def myfit(x, y):
-#    p0 = -1.0
-#    plsq = optimize.leastsq(residuals, p0, args=(y, x))
-#    return plsq
-    
 def readfile():
     data = []
-    infile = open("data.txt", "r")
+    infile = open("data_temp.txt", "r")
     aline = infile.readline()
     while aline:
         items = aline.split()
@@ -85,7 +79,7 @@ def readfile():
     infile.close()
     return np.array(data)
 def writefile(aline):
-    outfile = open("data.txt", "w")
+    outfile = open("data_temp.txt", "w")
     for k in range(len(aline)):
         items = aline[k]
         outfile.write(str(items) + '\n')
@@ -139,11 +133,10 @@ def count_in_unit():
 def count_in_average():
     data_y = readfile() # values have been increased by 1 when readfile
     s,f = [],[]
-    l = 9 # Do not change this value
     for i in range(int(len(data_y))):
         tempindex = np.where((i+1<=data_y)&(data_y<i+2))
         temparray = data_y[tempindex]
-        n = len(temparray)
+        n = len(temparray) #give the amount of ava-size i
         f.append((float(n))/float(len(data_y)))
         s.append(i+1)
     f,s = np.array(f),np.array(s)
@@ -166,7 +159,7 @@ def count_in_average():
 # main_program
 L = 100 #100   size of the sandpile
 rc = 3 #3     Give the threshold value
-N = 400 #10000 the time you'd like to trigger an avalanche
+N = 10 #10000 the time you'd like to trigger an avalanche
 
 xs = np.arange(0,L,1)
 ys = np.arange(0,L,1)
@@ -178,6 +171,7 @@ Z1 = np.random.random_integers(rc-1,rc+1,size=[L,L])
 note1,note2 = 0,[]
 for k in range(1000):#number: randomly add the sand(maybe save for another question))
     pickadd()
+print('APssk')
 note1 = evolve(rc)
 note2.append(note1)
 draw(Z1)
@@ -193,6 +187,6 @@ for k in range(N):
 print(note1,sum(note2),sum(D))
 print(float(N)/sum(D))
 draw(twili)
-#writefile(D)
+writefile(D)
 #count_in_unit()
-#count_in_average()
+count_in_average()
